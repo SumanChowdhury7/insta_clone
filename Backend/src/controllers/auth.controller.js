@@ -59,7 +59,7 @@ loginController: async (req,res)=>{
                 username: username
             }
         ]
-    });
+    }).select("+password")
 
     if (!user){
         return res.status(400).json({

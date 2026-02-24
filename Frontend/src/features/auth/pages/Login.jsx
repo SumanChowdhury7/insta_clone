@@ -12,7 +12,9 @@ const Login = () => {
 
   if(loading){
     return (
+      <main>
       <h2>Loading....</h2>
+      </main>
     )
   }
 

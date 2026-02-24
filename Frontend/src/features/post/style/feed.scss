@@ -1,0 +1,110 @@
+
+.feed-page {
+  min-height: 100vh;
+  background: linear-gradient(rgb(25, 24, 24), rgb(24, 24, 24));
+  display: flex;
+  justify-content: center;
+  padding: 30px 0;
+}
+
+.feed {
+  width: 100%;
+  max-width: 420px; 
+}
+
+.post {
+  background-color: #000;
+  border: 1px solid #262626;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid #262626;
+}
+
+.user img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user p {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.post-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+
+.bottom {
+  padding: 10px 14px;
+  color: #fff;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.actions .left,
+.actions .right {
+  display: flex;
+  gap: 16px;
+}
+
+.actions i {
+  font-size: 22px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.actions i:hover {
+  transform: scale(1.2);
+}
+
+
+.likes {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+
+.caption {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.caption span {
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+.time {
+  font-size: 12px;
+  color: #8e8e8e;
+  margin-top: 6px;
+}
+
+@media (max-width: 480px) {
+  .post {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}
