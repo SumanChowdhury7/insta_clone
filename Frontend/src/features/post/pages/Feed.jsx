@@ -1,23 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../style/feed.scss"
+import { usePost } from "../hooks/usePost";
+import { useAuth } from "../../auth/hooks/useAuth";
+
+
+
 
 const Feed = () => {
+  const { user, loading: authLoading } = useAuth();
+  const { posts, loading, fetchPosts } = usePost();
+  useEffect(() => {
+    if (user) {
+      fetchPosts();
+    }
+  }, [user]);
+
+  if (loading) return <p>Loading...</p>;
   return (
      <main className="feed-page">
       <div className="feed">
-        <div className="post">
+         {posts?.map((post) => (
+        <div className="post" key={post._id}>
           
           <div className="user">
             <img
-              src="https://images.unsplash.com/photo-1511367461989-f85a21fda167"
+              src={post.user.profileImage}
               alt="profile"
             />
-            <p>username</p>
+            <p>{post.user?.username}</p>
           </div>
 
           <img
             className="post-image"
-            src="https://images.unsplash.com/photo-1768740067016-d7fddac028d6"
+            src={post.imgUrl}
             alt="post"
           />
 
@@ -36,13 +51,13 @@ const Feed = () => {
             <p className="likes">1,204 likes</p>
 
             <p className="caption">
-              <span>username</span> Lorem ipsum dolor sit amet consectetur
-              adipisicing.
+              <span>{post.user?.username}</span>{post.caption}
             </p>
 
             <p className="time">2 HOURS AGO</p>
           </div>
         </div>
+        ))}
       </div>
     </main>
   );

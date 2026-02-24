@@ -25,7 +25,7 @@ const Register = () => {
    await handleRegister(username,email,password)
     .then(res=>{
     console.log(res)
-    navigate("/Login");
+    navigate("/");
   }) 
   }
 
