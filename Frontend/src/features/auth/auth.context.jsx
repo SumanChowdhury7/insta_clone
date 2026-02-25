@@ -5,32 +5,29 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // 🔥 true initially
+  const [loading, setLoading] = useState(true);
 
-  // ✅ App load pe cookie se user fetch
   useEffect(() => {
-    const fetchMe = async () => {
-      try {
-        const res = await getMe();
-        setUser(res.user);
-      } catch (err) {
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchMe();
   }, []);
+
+  const fetchMe = async () => {
+    try {
+      const res = await getMe();
+      setUser(res.user);
+    } catch (err) {
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleLogin = async (username, password) => {
     setLoading(true);
     try {
-      const response = await login(username, password);
-      setUser(response.user);
-      return response;
-    } catch (err) {
-      throw err;
+      const res = await login(username, password);
+      setUser(res.user);
+      return res;
     } finally {
       setLoading(false);
     }
@@ -39,19 +36,23 @@ export function AuthProvider({ children }) {
   const handleRegister = async (email, username, password) => {
     setLoading(true);
     try {
-      const response = await register(username, email, password);
-      setUser(response.user);
-      return response;
-    } catch (err) {
-      throw err;
+      const res = await register(username, email, password);
+      setUser(res.user);
+      return res;
     } finally {
       setLoading(false);
     }
   };
 
+
   return (
     <AuthContext.Provider
-      value={{ user, loading, handleLogin, handleRegister }}
+      value={{
+        user,
+        loading,
+        handleLogin,
+        handleRegister,
+      }}
     >
       {children}
     </AuthContext.Provider>

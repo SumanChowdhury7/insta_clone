@@ -37,11 +37,13 @@ const authController = {
       { expiresIn: "1h" },
     );
 
-    res.cookie("token", token,{
+    res.cookie("token", token,
+      {
         httpOnly: true,
       sameSite: "none",
       secure: false,
-    });
+    }
+  );
 
     res.status(201).json({
       message: "registration sucessfull",
@@ -50,7 +52,7 @@ const authController = {
         username: user.username,
         bio: user.bio,
       },
-      token,
+      
     });
   },
   loginController: async (req, res) => {
@@ -89,7 +91,7 @@ const authController = {
     );
     res.cookie("token", token, {
       httpOnly: true,
-      sameSite: "none",
+      sameSite: "lax",
       secure: false,
     });
 
