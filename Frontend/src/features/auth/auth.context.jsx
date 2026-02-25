@@ -5,13 +5,12 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    fetchMe();
-  }, []);
+ 
 
   const fetchMe = async () => {
+    setLoading(true)
     try {
       const res = await getMe();
       setUser(res.user);
@@ -28,6 +27,9 @@ export function AuthProvider({ children }) {
       const res = await login(username, password);
       setUser(res.user);
       return res;
+       useEffect(() => {
+    fetchMe();
+  }, []);
     } finally {
       setLoading(false);
     }
