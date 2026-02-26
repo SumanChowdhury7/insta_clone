@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "../style/feed.scss";
 import { usePost } from "../hooks/usePost";
 import { useAuth } from "../../auth/hooks/useAuth";
+import Nav from "../../shared/components/Nav";
 
 const Feed = () => {
   const { user, loading: authLoading } = useAuth();
@@ -15,6 +16,7 @@ const Feed = () => {
   if (loading) return <p>Loading...</p>;
   return (
     <main className="feed-page">
+      <Nav />
       <div className="feed">
         {posts?.map((post) => (
           <div className="post" key={post._id}>
