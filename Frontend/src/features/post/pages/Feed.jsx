@@ -7,6 +7,7 @@ import Nav from "../../shared/components/Nav";
 const Feed = () => {
   const { user, loading: authLoading } = useAuth();
   const { posts, loading, fetchPosts } = usePost();
+  const { handleLike, handleUnLike } = usePost();
   useEffect(() => {
     if (user) {
       fetchPosts();
@@ -31,6 +32,11 @@ const Feed = () => {
               <div className="actions">
                 <div className="left">
                   <i
+                    onClick={() => {
+                      post.isLiked
+                        ? handleUnLike(post._id)
+                        : handleLike(post._id);
+                    }}
                     className={`fa-${post.isLiked ? "solid" : "regular"} fa-heart ${
                       post.isLiked ? "liked" : ""
                     }`}
