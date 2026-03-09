@@ -32,14 +32,16 @@ const Feed = () => {
               <div className="actions">
                 <div className="left">
                   <i
-                    onClick={() => {
-                      post.isLiked
-                        ? handleUnLike(post._id)
-                        : handleLike(post._id);
+                    onClick={(e) => {
+                      e.preventDefault();
+
+                      if (post.isLiked) {
+                        handleUnLike(post._id);
+                      } else {
+                        handleLike(post._id);
+                      }
                     }}
-                    className={`fa-${post.isLiked ? "solid" : "regular"} fa-heart ${
-                      post.isLiked ? "liked" : ""
-                    }`}
+                    className={`fa-heart ${post.isLiked ? "fa-solid liked" : "fa-regular"}`}
                   ></i>
                   <i className="fa-regular fa-comment"></i>
                   <i className="fa-regular fa-paper-plane"></i>

@@ -70,7 +70,25 @@ const unfollowUserController = async (req, res) => {
   })
 };
 
+const followStatsController = async(req, res) =>{
+  const username = req.user.username;
+
+  const followerCount = await followModel.countDocuments({
+    followee: username
+  })
+
+  const followingCount = await followModel.countDocuments({
+    follower:username
+  })
+
+  res.status(200).json({
+    message:"Fetched Successfully",
+followerCount,
+followingCount
+  })
+}
 module.exports = {
   followUserController,
-  unfollowUserController
+  unfollowUserController,
+  followStatsController
 };

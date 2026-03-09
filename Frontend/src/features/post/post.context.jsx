@@ -27,14 +27,45 @@ setPosts([ data.post, ...posts])
 setLoading(false)
   }
 
-  const handleLike = async (postID)=>{
-    const data = await likePost(postID)
-    await fetchPosts()
+const handleLike = async (postID) => {
+  try {
+    await likePost(postID);
+
+    setPosts((prev) =>
+      prev.map((post) =>
+        post._id === postID
+          ? {
+              ...post,
+              isLiked: true,
+              likes: [...(post.likes || []), "temp"]
+            }
+          : post
+      )
+    );
+  } catch (err) {
+    console.log(err);
   }
-  const handleUnLike = async (postID)=>{
-    const data = await unLikePost(postID)
-    await fetchPosts()
+};
+
+const handleUnLike = async (postID) => {
+  try {
+    await unLikePost(postID);
+
+    setPosts((prev) =>
+      prev.map((post) =>
+        post._id === postID
+          ? {
+              ...post,
+              isLiked: false,
+              likes: (post.likes || []).slice(0, -1)
+            }
+          : post
+      )
+    );
+  } catch (err) {
+    console.log(err);
   }
+};
 
 
 

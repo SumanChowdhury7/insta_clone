@@ -2,7 +2,8 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/user.model");
 const bcrypt = require("bcryptjs");
-const crypto = require("crypto");
+const followModel = require("../models/follow.model");
+const postModel = require("../models/post.model")
 
 const authController = {
   registerController: async (req, res) => {
@@ -37,13 +38,11 @@ const authController = {
       { expiresIn: "1h" },
     );
 
-    res.cookie("token", token,
-      {
-        httpOnly: true,
+    res.cookie("token", token, {
+      httpOnly: true,
       sameSite: "none",
       secure: false,
-    }
-  );
+    });
 
     res.status(201).json({
       message: "registration sucessfull",
@@ -52,7 +51,6 @@ const authController = {
         username: user.username,
         bio: user.bio,
       },
-      
     });
   },
   loginController: async (req, res) => {
@@ -97,7 +95,7 @@ const authController = {
 
     res.status(200).json({
       message: "Logged in sucessfully.",
-      user
+      user,
     });
   },
 
@@ -106,6 +104,14 @@ const authController = {
 
     const user = await userModel.findById(userId);
 
+    const followersCount = await followModel.countDocuments({
+      followee: user.username,
+    });
+
+    const followingCount = await followModel.countDocuments({
+      follower: user.username,
+    });
+
     res.status(200).json({
       message: "Fetched sucessfully",
       user: {
@@ -113,6 +119,8 @@ const authController = {
         email: user.email,
         bio: user.bio,
         profileImage: user.profileImage,
+        followers: followersCount,
+        following: followingCount,
       },
     });
   },
