@@ -3,7 +3,8 @@ const jwt = require("jsonwebtoken");
 const userModel = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const followModel = require("../models/follow.model");
-const postModel = require("../models/post.model")
+const postModel = require("../models/post.model");
+const redis = require("../config/cache");
 
 const authController = {
   registerController: async (req, res) => {
@@ -122,6 +123,23 @@ const authController = {
         followers: followersCount,
         following: followingCount,
       },
+    });
+  },
+
+  logoutController: async (req, res) => {
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.status(401).json({
+        message: "Token not found",
+      });
+    }
+
+    res.clearCookie("token");
+
+    redis.set(token, Date.now().toString(), "EX", 60 * 60);
+    res.status(200).json({
+      message: "Logout Successfully.",
     });
   },
 };

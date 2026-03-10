@@ -6,12 +6,10 @@ const Profile = () => {
 
   const { user, loading } = useAuth();
 
-  // loading state
   if (loading) {
     return <div className="loading">Loading...</div>;
   }
 
-  // agar user nahi mila
   if (!user) {
     return <div className="loading">User not found</div>;
   }
@@ -57,8 +55,6 @@ const Profile = () => {
       <div className="divider"></div>
 
       <div className="posts-grid">
-
-        {/* future me yaha real posts ayenge */}
 
         <div className="post"></div>
         <div className="post"></div>

@@ -1,15 +1,15 @@
-// AuthContext.jsx
+
 import { createContext, useEffect, useState } from "react";
-import { login, register, getMe } from "./services/auth.api";
+import { login, register, getMe, logout } from "./services/auth.api";
 
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // start as true
+  const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(null);
 
-  // Fetch logged-in user
+  // Fetchme
   const fetchMe = async () => {
     setLoading(true);
     try {
@@ -59,6 +59,14 @@ export function AuthProvider({ children }) {
       setLoading(false);
     }
   };
+  const handleLogout = async ()=>{
+  setLoading(true);
+  try {
+    await logout();     
+  } finally {
+    setLoading(false);
+  }
+}
 
   return (
     <AuthContext.Provider
@@ -68,6 +76,7 @@ export function AuthProvider({ children }) {
         error,
         handleLogin,
         handleRegister,
+        handleLogout,
         fetchMe,
       }}
     >

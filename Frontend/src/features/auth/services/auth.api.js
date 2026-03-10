@@ -30,6 +30,15 @@ export async function login(username, password) {
   }
 }
 
+export async function logout() {
+  try {
+    const response = await api.post("/logout");
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function getMe() {
   try {
     const response = await api.get("/get-me");
