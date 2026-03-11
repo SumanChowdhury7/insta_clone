@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { getPost,createPost,likePost,unLikePost } from "./services/post.api";
+import { getPost,createPost, myPosts,likePost,unLikePost } from "./services/post.api";
 
 export const PostContext = createContext();
 
@@ -11,6 +11,18 @@ export const PostProvider = ({ children }) => {
     setLoading(true);
     try {
       const res = await getPost();
+      setPosts(res.posts);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchMyPosts = async () => {
+    setLoading(true);
+    try {
+      const res = await myPosts();
       setPosts(res.posts);
     } catch (err) {
       console.log(err);
@@ -73,7 +85,7 @@ const handleUnLike = async (postID) => {
     fetchPosts();
   }, []);
   return (
-    <PostContext.Provider value={{ posts, loading, fetchPosts, handleCreatePost, handleLike, handleUnLike }}>
+    <PostContext.Provider value={{ posts, loading, fetchPosts, handleCreatePost,fetchMyPosts, handleLike, handleUnLike }}>
       {children}
     </PostContext.Provider>
   );

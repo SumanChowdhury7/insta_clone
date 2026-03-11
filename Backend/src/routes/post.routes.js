@@ -9,9 +9,9 @@ const identifyUser = require('../middlewares/post.middleware');
 
 postRouter.post('/',upload.single("image"),identifyUser,postController.createPostController)
 
-postRouter.get('/',identifyUser,postController.getPostController)
 
 postRouter.get('/details/:postId',identifyUser,postController.getPostDetailsController)
+postRouter.get('/fetchmyposts',identifyUser, postController.fetchMyPostController )
 
 postRouter.post('/like/:postId',identifyUser,postController.likePostController)
 

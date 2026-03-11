@@ -87,8 +87,27 @@ followerCount,
 followingCount
   })
 }
+const suggestedUsersController = async (req, res) => {
+  const username = req.user.username;
+
+  const following = await followModel.find({
+    follower: username
+  });
+
+  const followingList = following.map(f => f.followee);
+
+  const suggestedUsers = await userModel.find({
+    username: { $nin: [...followingList, username] }
+  }).limit(10);
+
+  res.status(200).json({
+    message: "Suggested users fetched",
+    users: suggestedUsers
+  });
+};
 module.exports = {
   followUserController,
   unfollowUserController,
-  followStatsController
+  followStatsController,
+  suggestedUsersController
 };

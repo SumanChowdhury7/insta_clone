@@ -27,6 +27,15 @@ formData.append("caption", caption)
 }
 }
 
+export const myPosts = async ()=>{
+    try{
+        const response = await api.get('/fetchmyposts')
+        return response.data
+    } catch (err){
+        throw err
+    }
+}
+
 export const likePost = async (postID)=>{
 const response = await api.post("/like/" + postID)
 

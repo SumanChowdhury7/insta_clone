@@ -48,8 +48,9 @@ const authController = {
     res.status(201).json({
       message: "registration sucessfull",
       user: {
-        email: user.email,
         username: user.username,
+        email: user.email,
+        
         bio: user.bio,
       },
     });

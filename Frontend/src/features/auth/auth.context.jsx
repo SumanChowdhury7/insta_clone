@@ -62,7 +62,8 @@ export function AuthProvider({ children }) {
   const handleLogout = async ()=>{
   setLoading(true);
   try {
-    await logout();     
+    await logout();
+    setUser(null)     
   } finally {
     setLoading(false);
   }

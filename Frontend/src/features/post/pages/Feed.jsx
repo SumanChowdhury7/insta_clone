@@ -56,7 +56,6 @@ const Feed = () => {
                 {post.caption}
               </p>
 
-              <p className="time">2 HOURS AGO</p>
             </div>
           </div>
         ))}
